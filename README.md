@@ -52,4 +52,64 @@
 # Implementation
 1. The schema.sql contains the database schema.
 1. The data.sql file contains SQL commands to run at start up.
-1. Implementation tests run using Postman
+
+# Test
+
+## All Contacts
+```bash
+curl -i http://localhost:8080/v1/contacts
+HTTP/1.1 200
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Tue, 09 Jun 2020 03:05:57 GMT
+
+[{"id":1,"name":"Bob Haskel","phone":"3035551234"},{"id":2,"name":"Boba Loo","phone":"8015556874"},{"id":3,"name":"George Amish","phone":"1035559876"}]
+```
+
+## One Contact
+```bash
+curl -i http://localhost:8080/v1/contact/1
+HTTP/1.1 200
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Tue, 09 Jun 2020 03:10:30 GMT
+
+{"id":1,"name":"Bob Haskel","phone":"3035551234"}
+```
+
+### Contact not found
+```bash
+curl -i http://localhost:8080/v1/contact/123
+HTTP/1.1 404
+Content-Type: text/plain;charset=UTF-8
+Content-Length: 18
+Date: Tue, 09 Jun 2020 03:25:19 GMT
+
+unable to find 123
+```
+
+### Negative Contact Id
+```bash
+curl -i http://localhost:8080/v1/contact/-999
+HTTP/1.1 400
+Content-Type: text/plain;charset=UTF-8
+Content-Length: 19
+Date: Tue, 09 Jun 2020 03:10:41 GMT
+Connection: close
+
+id must be positive
+```
+
+### Missing Contact Id
+```bash
+curl -i http://localhost:8080/v1/contact
+HTTP/1.1 404
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Tue, 09 Jun 2020 03:09:54 GMT
+
+{"timestamp":"2020-06-09T03:09:54.114+00:00","status":404,"error":"Not Found","message":"No message available","path":"/v1/contact"}
+```

@@ -27,7 +27,7 @@ public class ContactControllerAdvice {
 	@ExceptionHandler(InvalidContactIdParameterException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	String serviceExceptionHandler(InvalidContactIdParameterException ex) {
-		log.warn("invalid Id parameter", ex);
+		log.warn("invalid Id parameter: " + ex.getMessage());
 		return ex.getMessage();
 	}
 }

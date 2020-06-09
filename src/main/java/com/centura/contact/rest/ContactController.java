@@ -1,5 +1,7 @@
 package com.centura.contact.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,19 +25,23 @@ public class ContactController {
 	@Autowired
 	private ContactService contactService;
 
-	@GetMapping("/contact/{id} ")
+	@GetMapping("/v1/contact/{id}")
 	public ContactDigest getContactById(@PathVariable("id") Long id) throws ContactNotFoundException, InvalidContactIdParameterException {
-		log.info("/contact/" + id);
+		log.info("/v1/contact/" + id);
 
 		validateId(id);
 
 		return contactService.findById(id);
 	}
 
+	@GetMapping("/v1/contacts")
+	public List<ContactDigest> getContacts() {
+		log.info("/v1/contacts/");
+
+		return contactService.findAll();
+	}
+
 	private void validateId(Long id) throws InvalidContactIdParameterException {
-		if (id == null) {
-			throw new InvalidContactIdParameterException("missing id");
-		}
 		if (id < 0) {
 			throw new InvalidContactIdParameterException("id must be positive");
 		}
