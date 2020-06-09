@@ -34,6 +34,8 @@ public class ContactRepositoryTest {
 		for (Contact contact : contacts) {
 			if (contact.getId() == 1L) {
 				assertEquals("Bob Haskel", contact.getName());
+				assertEquals("Bob", contact.getFirstName());
+				assertEquals("Haskel", contact.getLastName());
 				assertEquals("3035551234", contact.getPhone());
 			}
 		}
@@ -49,6 +51,8 @@ public class ContactRepositoryTest {
 
 		assertEquals(id, contact.getId());
 		assertEquals("Boba Loo", contact.getName());
+		assertEquals("Boba", contact.getFirstName());
+		assertEquals("Loo", contact.getLastName());
 		assertEquals("8015556874", contact.getPhone());
 	}
 
