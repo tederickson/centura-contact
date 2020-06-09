@@ -55,7 +55,8 @@
 
 # Test
 
-## All Contacts
+## Version 1
+### All Contacts
 ```bash
 curl -i http://localhost:8080/v1/contacts
 HTTP/1.1 200
@@ -66,7 +67,7 @@ Date: Tue, 09 Jun 2020 03:05:57 GMT
 [{"id":1,"name":"Bob Haskel","phone":"3035551234"},{"id":2,"name":"Boba Loo","phone":"8015556874"},{"id":3,"name":"George Amish","phone":"1035559876"}]
 ```
 
-## One Contact
+### One Contact
 ```bash
 curl -i http://localhost:8080/v1/contact/1
 HTTP/1.1 200
@@ -112,4 +113,27 @@ Transfer-Encoding: chunked
 Date: Tue, 09 Jun 2020 03:09:54 GMT
 
 {"timestamp":"2020-06-09T03:09:54.114+00:00","status":404,"error":"Not Found","message":"No message available","path":"/v1/contact"}
+```
+
+## Version 2
+### All Contacts
+```bash
+curl -i http://localhost:8080/v2/contacts
+HTTP/1.1 200
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Tue, 09 Jun 2020 04:29:23 GMT
+
+[{"id":1,"firstName":"Bob","lastName":"Haskel","phone":"3035551234"},{"id":2,"firstName":"Boba","lastName":"Loo","phone":"8015556874"},{"id":3,"firstName":"George","lastName":"Amish","phone":"1035559876"}]
+```
+
+### One Contact
+```bash
+curl -i http://localhost:8080/v2/contact/1
+HTTP/1.1 200
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Tue, 09 Jun 2020 04:32:11 GMT
+
+{"id":1,"firstName":"Bob","lastName":"Haskel","phone":"3035551234"}
 ```
