@@ -1,0 +1,7 @@
+CREATE TABLE CONTACT (
+    id   INTEGER      NOT NULL AUTO_INCREMENT,
+    name VARCHAR(128) NOT NULL,
+    phone VARCHAR(10) NOT NULL,
+    
+    PRIMARY KEY (id)
+);
