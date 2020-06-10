@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.centura.contact.domain.ContactDigest2;
 import com.centura.contact.exception.ContactNotFoundException;
-import com.centura.contact.exception.InvalidContactIdParameterException;
 import com.centura.contact.service.ContactService2;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,10 +25,12 @@ public class ContactController2 {
 	private ContactService2 contactService;
 
 	@GetMapping("/v2/contact/{id}")
-	public ContactDigest2 getContactById(@PathVariable("id") Long id) throws ContactNotFoundException, InvalidContactIdParameterException {
+	public ContactDigest2 getContactById(@PathVariable("id") Long id) throws ContactNotFoundException {
 		log.info("/v2/contact/" + id);
 
-		validateId(id);
+		if (id < 0) {
+			throw new IllegalArgumentException("Id must be positive");
+		}
 
 		return contactService.findById(id);
 	}
@@ -42,9 +43,4 @@ public class ContactController2 {
 		return contactService.findAll(startPage, pageSize);
 	}
 
-	private void validateId(Long id) throws InvalidContactIdParameterException {
-		if (id < 0) {
-			throw new InvalidContactIdParameterException("id must be positive");
-		}
-	}
 }
