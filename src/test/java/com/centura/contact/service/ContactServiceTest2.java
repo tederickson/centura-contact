@@ -2,6 +2,7 @@ package com.centura.contact.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -26,16 +27,29 @@ public class ContactServiceTest2 {
 	@Test
 	public void testFindAll() {
 		List<ContactDigest2> contacts = service.findAll(0, 100);
-
-		assertNotNull(contacts);
+		boolean found = false;
+		assertEquals(3, contacts.size());
 
 		for (ContactDigest2 contact : contacts) {
 			if (contact.getId() == 1L) {
 				assertEquals("Bob", contact.getFirstName());
 				assertEquals("Haskel", contact.getLastName());
 				assertEquals("3035551234", contact.getPhone());
+				found = true;
 			}
 		}
+
+		assertTrue(found);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testFindAllWithInvalidStartPage() throws IllegalArgumentException {
+		service.findAll(-1, 100);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testFindAllWithInvalidPageSize() throws IllegalArgumentException {
+		service.findAll(0, 0);
 	}
 
 	@Test

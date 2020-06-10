@@ -23,6 +23,7 @@ public class ContactControllerAdvice {
 		return ex.getMessage();
 	}
 
+	// Only used by version 1
 	@ResponseBody
 	@ExceptionHandler(InvalidContactIdParameterException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -30,4 +31,13 @@ public class ContactControllerAdvice {
 		log.warn("invalid Id parameter: " + ex.getMessage());
 		return ex.getMessage();
 	}
+
+	@ResponseBody
+	@ExceptionHandler(IllegalArgumentException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	String serviceExceptionHandler(IllegalArgumentException ex) {
+		log.warn("invalid argument", ex);
+		return ex.getMessage();
+	}
+
 }

@@ -156,3 +156,25 @@ Date: Tue, 09 Jun 2020 04:32:11 GMT
 
 {"id":1,"firstName":"Bob","lastName":"Haskel","phone":"3035551234"}
 ```
+
+### Invalid start index
+```bash
+curl -i http://localhost:8080/v2/contacts?start=-2&size=10
+HTTP/1.1 200
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Wed, 10 Jun 2020 04:54:44 GMT
+
+Page index must not be less than zero!
+```
+
+### Invalid page size
+```bash
+curl -i http://localhost:8080/v2/contacts?start=2&size=0
+HTTP/1.1 200
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Wed, 10 Jun 2020 04:54:44 GMT
+
+Page size must not be less than one!
+```
