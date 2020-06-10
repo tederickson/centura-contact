@@ -25,7 +25,7 @@ public class ContactServiceTest2 {
 
 	@Test
 	public void testFindAll() {
-		List<ContactDigest2> contacts = service.findAll();
+		List<ContactDigest2> contacts = service.findAll(0, 100);
 
 		assertNotNull(contacts);
 

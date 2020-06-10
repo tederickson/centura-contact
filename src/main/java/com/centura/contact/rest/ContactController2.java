@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.centura.contact.domain.ContactDigest2;
@@ -34,10 +35,11 @@ public class ContactController2 {
 	}
 
 	@GetMapping("/v2/contacts")
-	public List<ContactDigest2> getContacts() {
-		log.info("/v2/contacts/");
+	public List<ContactDigest2> getContacts(@RequestParam(value = "start", defaultValue = "0") Integer startPage,
+			@RequestParam(value = "size", defaultValue = "40") Integer pageSize) {
+		log.info("/v2/contacts?start=" + startPage + "&size=" + pageSize);
 
-		return contactService.findAll();
+		return contactService.findAll(startPage, pageSize);
 	}
 
 	private void validateId(Long id) throws InvalidContactIdParameterException {

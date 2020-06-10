@@ -134,6 +134,18 @@ Date: Tue, 09 Jun 2020 04:29:23 GMT
 [{"id":1,"firstName":"Bob","lastName":"Haskel","phone":"3035551234"},{"id":2,"firstName":"Boba","lastName":"Loo","phone":"8015556874"},{"id":3,"firstName":"George","lastName":"Amish","phone":"1035559876"}]
 ```
 
+### All Contacts with start index and size
+```bash
+curl -i http://localhost:8080/v2/contacts?start=2&size=1
+HTTP/1.1 200
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Wed, 10 Jun 2020 04:54:44 GMT
+
+[{"id":3,"firstName":"George","lastName":"Amish","phone":"1035559876"}]
+```
+
+
 ### One Contact
 ```bash
 curl -i http://localhost:8080/v2/contact/1
