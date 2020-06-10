@@ -9,9 +9,9 @@
 1. H2 Database - SQL - Provides a fast in-memory database that supports JDBC API and R2DBC access, with a small (2mb) footprint. Supports embedded and server modes as well as a browser based console application.
 
 # Implicit Design Steps
-* Separation of Concern - the requirements will change.  You need to make the application fault tolerant and loosely coupled.  Separation of Concern means you do not push the database table Object out to the presentation layer.  Any changes to the database cause ripples in the service and presentation code.  
-    * Database Layer - this is the database model and the repositories that access the database.  The JPARepository interface handle a lot of the DAO code. The layer uses model and repository packages. 
-    * Service Layer - knows about database layer and converts those objects to generic digests.  Handles the business logic.  The layer uses the domain, model, repository and service packages.
+* Separation of Concern - the requirements will change.  You need to make the application fault tolerant and loosely coupled.  Separation of Concern means you do not push the database table Object out to the presentation layer.  Any changes to the database would cause ripples in the service and presentation code. Enforce loose coupling so that changes are confined to the database and service layer.  
+    * Database Layer - this is the database model and the repositories that access the database.  The JPARepository interface handles a lot of the DAO code. The layer uses model and repository packages. 
+    * Service Layer - knows about database layer and converts those objects to generic digests.  The service layer handles the business logic.  The layer uses the domain, model, repository and service packages.
     * Presentation Layer - knows about the Service layer, has no idea the database layer exists. In this case the Presentation layer handles the API interaction with the outside world.  Validates requests and authorization.  Also handles version changes. The layer uses the rest, service and domain packages.
     
 * Security - use HTTPS.  Security is broken down into two parts - AuthN (Authentication) and AuthZ (Authorization).  Up to your organization if using OAuth 2.0, or Single Signon with SAML, or JSON web tokens, or api tokens or ...
@@ -21,11 +21,11 @@
 * Never expose information on URLs
 * Provide the minimum amount of feedback - E*Trade had different login error messages for invalid user or invalid password.  Bad actors used that information to find a list of valid user ids.  After that they worked on trying to hack the passwords.  A simple "invalid user id or password" message stopped that attach vector.
 
-* Provide the version number as part of the URI.  That allows clients interact the same version instead of a requirement change breaking their code.  Another option is GraphQL.  We used that at Ibotta to handle version changes.  The client provides which fields it wants to see.  Changes to the underlying object are ignored.
+* Provide the version number as part of the URI.  That allows clients to interact with the same version.  Otherwise a requirement change could break their code.  Another option is GraphQL.  We used that at Ibotta to handle version changes.  The client provides which fields it wants to see.  Changes to the underlying object are ignored.
 
 * Documentation - I prefer Swagger.  The documentation is generated from the code.  We ran into issues at E*Trade where the program managers were supposed to update the API wiki every release.  Documentation drift caused some angry/confused clients.
 
-* Testing - Unit test each piece.  Unit tests provide validation for refactoring code.  Integration and Unit tests validate the acceptance criteria.  
+* Testing - Unit test each piece.  Unit tests provide validation for refactoring code.  Integration and Unit tests validate the acceptance criteria. 
 
 # REST Design Steps
 1. Understand the Object Model - this will change as requirements evolve.  
@@ -144,7 +144,6 @@ Date: Wed, 10 Jun 2020 04:54:44 GMT
 
 [{"id":3,"firstName":"George","lastName":"Amish","phone":"1035559876"}]
 ```
-
 
 ### One Contact
 ```bash
