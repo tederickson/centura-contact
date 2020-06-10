@@ -41,7 +41,7 @@
     * Update phone - /contact/**{id}**/phone
     * Delete - /contact/**{id}**
 1. Another part of the Model URI are the collection operations (these only involve GET or Read operations.  Bulk update is a bad idea):
-    * Retrieve all - this needs optional parameters to handle paging. A starting index and number of results.  The results have to be sorted so that the calling program can reliably work through the table.
+    * Retrieve all - this needs optional parameters to handle paging. A starting page and number of results on each page.
         * /contacts?start={beginning index}&size={number of results}
     * Search - suggest breaking up into search first name and search last name 
         * /contacts/search_first_name/{name}?wildcard={true}
