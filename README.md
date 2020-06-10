@@ -52,6 +52,13 @@
 # Implementation
 1. The schema.sql contains the database schema.
 1. The data.sql file contains SQL commands to run at start up.
+1. Implement version 1 and 2 of the API.  
+    * Two digests, services and REST Controllers.  
+    * The database model and schema are changed.  
+    * The version 1 service and controller still return the version 1 digest.  
+    * The version 2 digest shows the new fields. 
+    * The version 2 controller and service are similar to version 1.  Bug fixes are confined to the different versions.  Easier to maintain than a bunch of if(version 1){} else if(version 2) control flow statements.
+    * Easier to delete obsolete code.  Once version x is no longer supported, remove the digest, service, controller and tests.
 
 # Test
 

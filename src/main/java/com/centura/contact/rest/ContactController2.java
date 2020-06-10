@@ -7,37 +7,35 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.centura.contact.domain.ContactDigest;
+import com.centura.contact.domain.ContactDigest2;
 import com.centura.contact.exception.ContactNotFoundException;
 import com.centura.contact.exception.InvalidContactIdParameterException;
-import com.centura.contact.service.ContactService;
+import com.centura.contact.service.ContactService2;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Exceptions are handled by the ContactControllerAdvice. The exception is
- * logged and converted to the appropriate HTTP Status code.
+ * REST controller for version 2 of the API.
  */
 
 @RestController
 @Slf4j
-public class ContactController {
+public class ContactController2 {
 	@Autowired
-	private ContactService contactService;
+	private ContactService2 contactService;
 
-	@GetMapping("/v1/contact/{id}")
-	public ContactDigest getContactByIdVersion1(@PathVariable("id") Long id)
-			throws ContactNotFoundException, InvalidContactIdParameterException {
-		log.info("/v1/contact/" + id);
+	@GetMapping("/v2/contact/{id}")
+	public ContactDigest2 getContactById(@PathVariable("id") Long id) throws ContactNotFoundException, InvalidContactIdParameterException {
+		log.info("/v2/contact/" + id);
 
 		validateId(id);
 
 		return contactService.findById(id);
 	}
 
-	@GetMapping("/v1/contacts")
-	public List<ContactDigest> getContactsVersion1() {
-		log.info("/v1/contacts/");
+	@GetMapping("/v2/contacts")
+	public List<ContactDigest2> getContacts() {
+		log.info("/v2/contacts/");
 
 		return contactService.findAll();
 	}
