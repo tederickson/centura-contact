@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.centura.contact.domain.ContactDigest2;
@@ -18,8 +20,9 @@ public class ContactServiceImpl2 implements ContactService2 {
 	private ContactRepository contactRepository;
 
 	@Override
-	public List<ContactDigest2> findAll() {
-		List<Contact> contacts = contactRepository.findAll();
+	public List<ContactDigest2> findAll(Integer startPage, Integer pageSize) {
+		Pageable pageable = PageRequest.of(startPage, pageSize);
+		List<Contact> contacts = contactRepository.findAll(pageable).toList();
 		List<ContactDigest2> results = new ArrayList<>();
 
 		if (contacts != null) {

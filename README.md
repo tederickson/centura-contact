@@ -41,7 +41,7 @@
     * Update phone - /contact/**{id}**/phone
     * Delete - /contact/**{id}**
 1. Another part of the Model URI are the collection operations (these only involve GET or Read operations.  Bulk update is a bad idea):
-    * Retrieve all - this needs optional parameters to handle paging. A starting index and number of results.  The results have to be sorted so that the calling program can reliably work through the table.
+    * Retrieve all - this needs optional parameters to handle paging. A starting page and number of results on each page.
         * /contacts?start={beginning index}&size={number of results}
     * Search - suggest breaking up into search first name and search last name 
         * /contacts/search_first_name/{name}?wildcard={true}
@@ -52,6 +52,13 @@
 # Implementation
 1. The schema.sql contains the database schema.
 1. The data.sql file contains SQL commands to run at start up.
+1. Implement version 1 and 2 of the API.  
+    * Two digests, services and REST Controllers.  
+    * The database model and schema are changed.  
+    * The version 1 service and controller still return the version 1 digest.  
+    * The version 2 digest shows the new fields. 
+    * The version 2 controller and service are similar to version 1.  Bug fixes are confined to the different versions.  Easier to maintain than a bunch of if(version 1){} else if(version 2) control flow statements.
+    * Easier to delete obsolete code.  Once version x is no longer supported, remove the digest, service, controller and tests.
 
 # Test
 
@@ -126,6 +133,18 @@ Date: Tue, 09 Jun 2020 04:29:23 GMT
 
 [{"id":1,"firstName":"Bob","lastName":"Haskel","phone":"3035551234"},{"id":2,"firstName":"Boba","lastName":"Loo","phone":"8015556874"},{"id":3,"firstName":"George","lastName":"Amish","phone":"1035559876"}]
 ```
+
+### All Contacts with start index and size
+```bash
+curl -i http://localhost:8080/v2/contacts?start=2&size=1
+HTTP/1.1 200
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Wed, 10 Jun 2020 04:54:44 GMT
+
+[{"id":3,"firstName":"George","lastName":"Amish","phone":"1035559876"}]
+```
+
 
 ### One Contact
 ```bash
