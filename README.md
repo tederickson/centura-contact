@@ -22,13 +22,15 @@ We’d like him to build an API in Java or Javascript that returns a contact fro
     * Default to deny instead of approve
     
 * Never expose information on URLs
-* Provide the minimum amount of feedback - E*Trade had different login error messages for invalid user or invalid password.  Bad actors used that information to find a list of valid user ids.  After that they worked on trying to hack the passwords.  A simple "invalid user id or password" message stopped that attach vector.
+* Provide the minimum amount of feedback - E*Trade had different login error messages for invalid user or invalid password.  Bad actors used that information to find a list of valid user ids.  After that they worked on trying to hack the passwords.  A simple "invalid user id or password" message stopped that attack vector.
 
-* Provide the version number as part of the URI.  That allows clients to interact with the same version.  Otherwise a requirement change could break their code.  Another option is GraphQL.  We used that at Ibotta to handle version changes.  The client provides which fields it wants to see.  Changes to the underlying object are ignored.
+* Show how to handle changing business requirements by using versioning.
+    * Provide the version number as part of the URI.  That allows clients to interact with the same version.  Otherwise a requirement change could break their code.  
+    * Another option is GraphQL.  We used [GraphQL](https://graphql.org/) at Ibotta to handle version changes.  
 
-* Documentation - I prefer Swagger.  The documentation is generated from the code.  We ran into issues at E*Trade where the program managers were supposed to update the API wiki every release.  Documentation drift caused some angry/confused clients.
+* Documentation - I prefer [Swagger](https://swagger.io/).  The documentation is generated from the code.  We ran into documentation drift issues at a previous company because a different group was supposed to update the API documentation. 
 
-* Testing - Unit test each piece.  Unit tests provide validation for refactoring code.  Integration and Unit tests validate the acceptance criteria. 
+* Testing - Unit test each piece.  Unit tests provide validation for refactoring code.  Integration and Unit tests validate the acceptance criteria.
 
 # REST Design Steps
 1. Understand the Object Model - this will change as requirements evolve.  
