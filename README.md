@@ -21,8 +21,8 @@ We’d like him to build an API in Java or Javascript that returns a contact fro
     * Provide the least amount of authorization possible
     * Default to deny instead of approve
     
-* Never expose information on URLs
-* Provide the minimum amount of feedback - E*Trade had different login error messages for invalid user or invalid password.  Bad actors used that information to find a list of valid user ids.  After that they worked on trying to hack the passwords.  A simple "invalid user id or password" message stopped that attack vector.
+* Never expose information on URLs.  User names, passwords, API tokens, any Personal Identifiable Information should not be part of the URL.
+* Provide the minimum amount of feedback - ETrade had different login error messages for invalid user or invalid password.  Bad actors used that information to find a list of valid user ids.  After that they worked on trying to hack the passwords.  A simple "invalid user id or password" message stopped that attack vector.
 
 * Show how to handle changing business requirements by using versioning.
     * Provide the version number as part of the URI.  That allows clients to interact with the same version.  Otherwise a requirement change could break their code.  
