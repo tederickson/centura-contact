@@ -31,6 +31,7 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 @WebMvcTest(ContactController2.class)
 @ComponentScan(basePackageClasses = ContactsApplication.class)
 public class ContactController2Test {
+	private final static String VERSION = "/v2/";
 	private final static Long DEFAULT_ID = 123L;
 
 	@Autowired
@@ -43,24 +44,24 @@ public class ContactController2Test {
 	private ContactService2 contactService;
 
 	@Test
-	public void testGetContactByIdVersion1InvalidId() throws Exception {
-		MockHttpServletRequestBuilder builder = get("/v2/contact/-123456").contentType(MediaType.APPLICATION_JSON);
+	public void testGetContactByIdInvalidId() throws Exception {
+		MockHttpServletRequestBuilder builder = get(VERSION + "contact/-123456").contentType(MediaType.APPLICATION_JSON);
 		mvc.perform(builder).andExpect(status().is4xxClientError());
 	}
 
 	@Test
-	public void testGetContactByIdVersion1MissingId() throws Exception {
-		MockHttpServletRequestBuilder builder = get("/v2/contact").contentType(MediaType.APPLICATION_JSON);
+	public void testGetContactByIdMissingId() throws Exception {
+		MockHttpServletRequestBuilder builder = get(VERSION + "contact").contentType(MediaType.APPLICATION_JSON);
 		mvc.perform(builder).andExpect(status().is4xxClientError());
 	}
 
 	@Test
-	public void testGetContactByIdVersion1() throws Exception {
+	public void testGetContactById() throws Exception {
 		ContactDigest2 expected = buildContactDigest();
 
 		when(contactService.findById(DEFAULT_ID)).thenReturn(expected);
 
-		MockHttpServletRequestBuilder builder = get("/v2/contact/" + DEFAULT_ID).contentType(MediaType.APPLICATION_JSON);
+		MockHttpServletRequestBuilder builder = get(VERSION + "contact/" + DEFAULT_ID).contentType(MediaType.APPLICATION_JSON);
 		MvcResult result = mvc.perform(builder).andExpect(status().isOk()).andReturn();
 
 		String json = result.getResponse().getContentAsString();
@@ -70,8 +71,8 @@ public class ContactController2Test {
 	}
 
 	@Test
-	public void testGetContactsVersion1NoResults() throws Exception {
-		MockHttpServletRequestBuilder builder = get("/v2/contacts").contentType(MediaType.APPLICATION_JSON);
+	public void testGetContactsNoResults() throws Exception {
+		MockHttpServletRequestBuilder builder = get(VERSION + "contacts").contentType(MediaType.APPLICATION_JSON);
 		MvcResult result = mvc.perform(builder).andExpect(status().isOk()).andReturn();
 		String json = result.getResponse().getContentAsString();
 
@@ -79,14 +80,14 @@ public class ContactController2Test {
 	}
 
 	@Test
-	public void testGetContactsVersion1() throws Exception {
+	public void testGetContacts() throws Exception {
 		List<ContactDigest2> expected = new ArrayList<>();
 		expected.add(buildContactDigest());
 		expected.add(buildContactDigest(15L, "Al", "Jackson", "8015551234"));
 
 		when(contactService.findAll(0, 40)).thenReturn(expected);
 
-		MockHttpServletRequestBuilder builder = get("/v2/contacts").contentType(MediaType.APPLICATION_JSON);
+		MockHttpServletRequestBuilder builder = get(VERSION + "contacts").contentType(MediaType.APPLICATION_JSON);
 		MvcResult result = mvc.perform(builder).andExpect(status().isOk()).andReturn();
 		String json = result.getResponse().getContentAsString();
 
@@ -100,13 +101,13 @@ public class ContactController2Test {
 	}
 
 	@Test
-	public void testGetContactsVersion1SetStartPage() throws Exception {
+	public void testGetContactsSetStartPage() throws Exception {
 		List<ContactDigest2> expected = new ArrayList<>();
 		expected.add(buildContactDigest());
 
 		when(contactService.findAll(3, 40)).thenReturn(expected);
 
-		MockHttpServletRequestBuilder builder = get("/v2/contacts?start=3").contentType(MediaType.APPLICATION_JSON);
+		MockHttpServletRequestBuilder builder = get(VERSION + "contacts?start=3").contentType(MediaType.APPLICATION_JSON);
 		MvcResult result = mvc.perform(builder).andExpect(status().isOk()).andReturn();
 		String json = result.getResponse().getContentAsString();
 
@@ -119,13 +120,13 @@ public class ContactController2Test {
 	}
 
 	@Test
-	public void testGetContactsVersion1SetStartPageAndPageSize() throws Exception {
+	public void testGetContactsSetStartPageAndPageSize() throws Exception {
 		List<ContactDigest2> expected = new ArrayList<>();
 		expected.add(buildContactDigest());
 
 		when(contactService.findAll(3, 6)).thenReturn(expected);
 
-		MockHttpServletRequestBuilder builder = get("/v2/contacts?start=3&size=6").contentType(MediaType.APPLICATION_JSON);
+		MockHttpServletRequestBuilder builder = get(VERSION + "contacts?start=3&size=6").contentType(MediaType.APPLICATION_JSON);
 		MvcResult result = mvc.perform(builder).andExpect(status().isOk()).andReturn();
 		String json = result.getResponse().getContentAsString();
 
