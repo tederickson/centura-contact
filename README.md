@@ -52,7 +52,7 @@ We’d like him to build an API in Java or Javascript that returns a contact fro
         * /contacts/search_first_name/{name}?wildcard={true}
         * /contacts/search_last_name/{name}?wildcard={true} 
 
-1. Assign HTTP verbs - read is GET, create is POST, update is PUT or PATCH, delete is DELETE. I prefer additional small URIs to update part of resource instead of a PATCH with a lot of internal switching code.  HEAD is a read that has no content, usually employed when you want to check if the resource has changed or the resource will fit in your storage.
+1. Assign HTTP verbs - read is GET, create is POST, update is PUT or PATCH, delete is DELETE. I prefer additional small URIs to update part of resource instead of a PATCH with a lot of internal switching code.  HEAD is a read that has no content, usually employed when you want to check if the resource has changed or if the resource will fit in your storage.
 
 # Implementation
 1. The schema.sql contains the database schema.
