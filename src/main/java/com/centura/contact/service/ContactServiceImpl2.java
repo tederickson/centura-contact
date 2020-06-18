@@ -42,7 +42,7 @@ public class ContactServiceImpl2 implements ContactService2 {
 			return buildContactDigest(contact.get());
 		}
 
-		throw new ContactNotFoundException("unable to find " + id);
+		throw new ContactNotFoundException("Unable to find " + id);
 	}
 
 	private ContactDigest2 buildContactDigest(Contact contact) {
