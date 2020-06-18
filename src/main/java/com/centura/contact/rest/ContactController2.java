@@ -50,7 +50,8 @@ public class ContactController2 {
 	@ApiOperation(value = "Retrieve a list of all Contacts", //
 			notes = "An empty list is returned if there are no entries for the requested page.")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
-			@ApiResponse(code = 404, message = "Will not happen, an empty list is returned.") })
+			@ApiResponse(code = 404, message = "Will not happen, an empty list is returned."),
+			@ApiResponse(code = 400, message = "Invalid arguments") })
 	@GetMapping("/contacts")
 	public List<ContactDigest2> getContacts(@RequestParam(value = "start", defaultValue = "0") Integer startPage,
 			@RequestParam(value = "size", defaultValue = "40") Integer pageSize) {
