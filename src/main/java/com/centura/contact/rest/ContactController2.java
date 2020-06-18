@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 @Api(value = "contactV2", description = "Version 2 of the Contact List API")
+@RequestMapping("v2")
 public class ContactController2 {
 	@Autowired
 	private ContactService2 contactService;
@@ -34,9 +36,9 @@ public class ContactController2 {
 			@ApiResponse(code = 200, message = "Successfully retrieved Contact"), //
 			@ApiResponse(code = 400, message = "Invalid Contact Id"), //
 			@ApiResponse(code = 404, message = "Contact Id not found") })
-	@GetMapping("/v2/contact/{id}")
+	@GetMapping("/contact/{id}")
 	public ContactDigest2 getContactById(@PathVariable("id") Long id) throws ContactNotFoundException {
-		log.info("/v2/contact/" + id);
+		log.info("/contact/" + id);
 
 		if (id < 0) {
 			throw new IllegalArgumentException("Id must be positive");
@@ -49,10 +51,10 @@ public class ContactController2 {
 			notes = "An empty list is returned if there are no entries for the requested page.")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
 			@ApiResponse(code = 404, message = "Will not happen, an empty list is returned.") })
-	@GetMapping("/v2/contacts")
+	@GetMapping("/contacts")
 	public List<ContactDigest2> getContacts(@RequestParam(value = "start", defaultValue = "0") Integer startPage,
 			@RequestParam(value = "size", defaultValue = "40") Integer pageSize) {
-		log.info("/v2/contacts?start=" + startPage + "&size=" + pageSize);
+		log.info("/contacts?start=" + startPage + "&size=" + pageSize);
 
 		return contactService.findAll(startPage, pageSize);
 	}
