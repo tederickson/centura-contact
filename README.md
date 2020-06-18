@@ -65,6 +65,11 @@ We’d like him to build an API in Java or Javascript that returns a contact fro
     * The version 2 controller and service are similar to version 1.  Bug fixes are confined to the different versions.  Easier to maintain than a bunch of if(version 1){} else if(version 2) control flow statements.
     * Easier to delete obsolete code.  Once version x is no longer supported, remove the digest, service, controller and tests.
 
+# Documentation
+Swagger provides the API documentation.  Run the application and point a browser at http://localhost:8080/swagger-ui.html
+
+Please note that version does not have any Swagger annotations. Version 2 provides more human friendly documentation.
+
 # Test
 
 ## Version 1

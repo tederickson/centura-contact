@@ -12,6 +12,10 @@ import com.centura.contact.domain.ContactDigest2;
 import com.centura.contact.exception.ContactNotFoundException;
 import com.centura.contact.service.ContactService2;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -20,10 +24,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
+@Api(value = "contactV2", description = "Version 2 of the Contact List API")
 public class ContactController2 {
 	@Autowired
 	private ContactService2 contactService;
 
+	@ApiOperation(value = "Retrieve a Contact")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved Contact"),
+			@ApiResponse(code = 400, message = "Invalid Contact Id") })
 	@GetMapping("/v2/contact/{id}")
 	public ContactDigest2 getContactById(@PathVariable("id") Long id) throws ContactNotFoundException {
 		log.info("/v2/contact/" + id);
@@ -35,6 +43,8 @@ public class ContactController2 {
 		return contactService.findById(id);
 	}
 
+	@ApiOperation(value = "Retrieve a list of all Contacts")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list") })
 	@GetMapping("/v2/contacts")
 	public List<ContactDigest2> getContacts(@RequestParam(value = "start", defaultValue = "0") Integer startPage,
 			@RequestParam(value = "size", defaultValue = "40") Integer pageSize) {
