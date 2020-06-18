@@ -68,7 +68,9 @@ We’d like him to build an API in Java or Javascript that returns a contact fro
 # Documentation
 Swagger provides the API documentation.  Run the application and point a browser at http://localhost:8080/swagger-ui.html
 
-Please note that version does not have any Swagger annotations. Version 2 provides more human friendly documentation.
+Please note:
+* Version 1 does not have any Swagger annotations. 
+* Version 2 Swagger annotations provide more human friendly documentation.
 
 # Test
 
