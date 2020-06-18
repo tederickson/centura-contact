@@ -30,8 +30,10 @@ public class ContactController2 {
 	private ContactService2 contactService;
 
 	@ApiOperation(value = "Retrieve a Contact")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved Contact"),
-			@ApiResponse(code = 400, message = "Invalid Contact Id") })
+	@ApiResponses(value = { //
+			@ApiResponse(code = 200, message = "Successfully retrieved Contact"), //
+			@ApiResponse(code = 400, message = "Invalid Contact Id"), //
+			@ApiResponse(code = 404, message = "Contact Id not found") })
 	@GetMapping("/v2/contact/{id}")
 	public ContactDigest2 getContactById(@PathVariable("id") Long id) throws ContactNotFoundException {
 		log.info("/v2/contact/" + id);
@@ -43,8 +45,10 @@ public class ContactController2 {
 		return contactService.findById(id);
 	}
 
-	@ApiOperation(value = "Retrieve a list of all Contacts")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list") })
+	@ApiOperation(value = "Retrieve a list of all Contacts", //
+			notes = "An empty list is returned if there are no entries for the requested page.")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
+			@ApiResponse(code = 404, message = "Will not happen, an empty list is returned.") })
 	@GetMapping("/v2/contacts")
 	public List<ContactDigest2> getContacts(@RequestParam(value = "start", defaultValue = "0") Integer startPage,
 			@RequestParam(value = "size", defaultValue = "40") Integer pageSize) {
