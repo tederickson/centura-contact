@@ -72,7 +72,24 @@ Please note:
 * Version 1 does not have any Swagger annotations. 
 * Version 2 Swagger annotations provide more human friendly documentation.
 
+# Run the Application
+Run the following command in a terminal window (in the centura-contact) directory:
+
+```bash
+mvn spring-boot:run
+```
+
 # Test
+## Unit Tests
+Run the following command in a terminal window.
+
+```bash
+mvn clean test
+```
+
+## Integration Tests
+Run the application in one terminal window.
+Run curl commands in a different terminal window.
 
 ## Version 1
 ### All Contacts
